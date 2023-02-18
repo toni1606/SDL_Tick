@@ -144,11 +144,13 @@ int game_board_check_winner(game_board_t *board) {
   }
 
   // Check for diagonal wins.
+  // Left diagnonal.
   if (is_winner_diag_l(board, board->cpu_tok))
     return board->cpu_tok;
   else if (is_winner_diag_l(board, board->plr_tok))
     return board->plr_tok;
 
+  // Right diagnonal.
   if (is_winner_diag_r(board, board->cpu_tok))
     return board->cpu_tok;
   else if (is_winner_diag_r(board, board->plr_tok))
