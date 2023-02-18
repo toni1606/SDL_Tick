@@ -1,5 +1,6 @@
 #include "../headers/logic.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 char game_state_tc(game_state_t s) {
   char out = '\0';
@@ -37,6 +38,16 @@ int game_board_new(game_board_t *board, unsigned int len, unsigned int row_len,
   board->cpu_tok = cpu_tok;
   board->plr_tok = plr_tok;
 
+  return 0;
+}
+
+int game_board_free(game_board_t *board) {
+  if (!board) {
+    fprintf(stderr, "Board pointer was NULL");
+    return -1;
+  }
+
+  free(board->values);
   return 0;
 }
 

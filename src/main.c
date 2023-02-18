@@ -13,5 +13,7 @@ int main(void) {
       printf("\n");
     }
   }
+
+  game_board_free(&board);
   return 0;
 }
