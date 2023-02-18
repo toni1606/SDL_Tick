@@ -52,8 +52,8 @@ int game_board_free(game_board_t *board) {
 }
 
 void game_board_print(game_board_t *board) {
-  for (int i = 0; i < board->len; i += board->row_len) {
-    for (int j = 0; j < board->row_len; j++)
+  for (unsigned int i = 0; i < board->len; i += board->row_len) {
+    for (unsigned int j = 0; j < board->row_len; j++)
       printf(" %c ", game_state_tc(board->values[i + j]));
     printf("\n");
   }
@@ -80,6 +80,30 @@ int game_board_turn(game_board_t *board, unsigned int row, unsigned int col) {
 
   return 0;
 }
+
+static bool is_winner_row(game_board_t *board, unsigned int row,
+                          game_state_t check_for) {
+  for (unsigned int i = 0; i < board->row_len; i++) {
+    if (board->values[row + i] != check_for)
+      return false;
+  }
+
+  return true;
+}
+
 int game_board_check_winner(game_board_t *board) {
-  UNIMPLEMENTED("game_board_winner");
+  if (!board) {
+    fprintf(stderr, "Board pointer was NULL");
+    return -1;
+  }
+
+  // Check row wins.
+  for (unsigned int i = 0; i < board->len; i += board->row_len) {
+    if (is_winner_row(board, i, board->cpu_tok))
+      return board->cpu_tok;
+    else if (is_winner_row(board, i, board->plr_tok))
+      return board->plr_tok;
+  }
+
+  return 0;
 }
