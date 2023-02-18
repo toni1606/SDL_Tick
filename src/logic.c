@@ -91,6 +91,16 @@ static bool is_winner_row(game_board_t *board, unsigned int row,
   return true;
 }
 
+static bool is_winner_col(game_board_t *board, unsigned int col,
+                          game_state_t check_for) {
+  for (unsigned int i = col; i < board->len; i += board->row_len) {
+    if (board->values[i + col] != check_for)
+      return false;
+  }
+
+  return true;
+}
+
 int game_board_check_winner(game_board_t *board) {
   if (!board) {
     fprintf(stderr, "Board pointer was NULL");
@@ -102,6 +112,14 @@ int game_board_check_winner(game_board_t *board) {
     if (is_winner_row(board, i, board->cpu_tok))
       return board->cpu_tok;
     else if (is_winner_row(board, i, board->plr_tok))
+      return board->plr_tok;
+  }
+
+  // Check for column wins.
+  for (unsigned int i = 0; i < board->row_len; i++) {
+    if (is_winner_col(board, i, board->cpu_tok))
+      return board->cpu_tok;
+    else if (is_winner_col(board, i, board->plr_tok))
       return board->plr_tok;
   }
 
