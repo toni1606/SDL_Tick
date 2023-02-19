@@ -1,4 +1,4 @@
-#include "../headers/logic.h"
+#include "../headers/cli.h"
 #include <stdio.h>
 
 int main(void) {
@@ -6,13 +6,19 @@ int main(void) {
 
   game_board_new(&board, 9, 3, O, X);
 
-  board.values[2] = X;
-  board.values[4] = X;
-  board.values[6] = X;
+  unsigned int turn = 0;
+  while (true) {
+    turn++;
+    printf("Turn %d\n", turn);
 
-  game_board_print(&board);
-
-  printf("%d\n", game_board_check_winner(&board));
+    if (cli_tick(&board) == X) {
+      printf("You won!!!");
+      break;
+    } else if (cli_tick(&board) == O) {
+      printf("CPU won!!!");
+      break;
+    }
+  }
 
   game_board_free(&board);
   return 0;
