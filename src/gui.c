@@ -69,13 +69,20 @@ void gui_end(gui_t *g) {
 }
 
 int gui_render_playground(gui_t *gui) {
+  // Clear the rendering.
+  SDL_RenderClear(gui->rendr);
+
+  // Change Render Color.
   SDL_SetRenderDrawColor(gui->rendr, 0, 0, 255, 255);
 
+  // Draw the outline of the rectangle.
+  // TODO: Use SDL_RendererFillRect() to fill it with colour.
   if (SDL_RenderDrawRect(gui->rendr, &gui->base_col) < 0) {
     fprintf(stderr, "Could not render column: %s\n", SDL_GetError());
     return -1;
   }
 
+  // Change Back buffer with front buffer.
   SDL_RenderPresent(gui->rendr);
   SDL_Delay(5000);
 
