@@ -69,6 +69,10 @@ int game_board_turn(game_board_t *board, unsigned int row, unsigned int col) {
   } else if (col >= board->row_len) {
     fprintf(stderr, "Invalid column value");
     return -3;
+  } else if (board->values[(row * board->row_len) + col] != X ||
+             board->values[(row * board->row_len) + col] != O) {
+    fprintf(stderr, "Cell alredy populated");
+    return -4;
   }
 
   if (board->is_cpu_turn)
