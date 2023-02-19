@@ -1,6 +1,7 @@
 #include "../headers/gui.h"
 
-int gui_start(char *title, unsigned int width, unsigned int height) {
+int gui_start(gui_t *gui, char *title, unsigned int width,
+              unsigned int height) {
   SDL_Window *window = NULL;
 
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -16,10 +17,14 @@ int gui_start(char *title, unsigned int width, unsigned int height) {
     return -2;
   }
 
+  gui->window = window;
+
   SDL_Delay(5000);
 
-  SDL_DestroyWindow(window);
-  SDL_Quit();
-
   return 0;
+}
+
+void gui_end(gui_t *g) {
+  SDL_DestroyWindow(g->window);
+  SDL_Quit();
 }
