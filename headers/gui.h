@@ -2,6 +2,7 @@
 #include "../headers/utils.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_rect.h>
+#include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
 #include <stdio.h>
 
@@ -10,6 +11,7 @@
 
 typedef struct {
   SDL_Window *window;
+  SDL_Renderer *rendr;
   SDL_Rect base_col;
   SDL_Rect base_row;
   game_board_t board;

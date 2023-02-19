@@ -1,5 +1,7 @@
 #include "../headers/gui.h"
 #include <SDL2/SDL_rect.h>
+#include <SDL2/SDL_render.h>
+#include <stdio.h>
 
 int gui_start(gui_t *gui, game_board_t board, char *title, unsigned int width,
               unsigned int height) {
@@ -9,6 +11,9 @@ int gui_start(gui_t *gui, game_board_t board, char *title, unsigned int width,
   }
 
   SDL_Window *window = NULL;
+  SDL_Renderer *rendr = NULL;
+  SDL_Rect col = {0};
+  SDL_Rect row = {0};
 
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
     fprintf(stderr, "Could not start video subsystem\n");
@@ -23,20 +28,26 @@ int gui_start(gui_t *gui, game_board_t board, char *title, unsigned int width,
     return -2;
   }
 
+  rendr = SDL_CreateRenderer(window, -1, 0);
+
+  if (!rendr) {
+    fprintf(stderr, "Could not create renderer: %s\n", SDL_GetError());
+    return -3;
+  }
+
   // 20 == padding
-  SDL_Rect col = {0};
   col.x = CELL_SPACE + 20;
   col.y = 20;
   col.w = GIRTH;
   col.h = (board.len / board.row_len) * (GIRTH + CELL_SPACE + 20);
 
-  SDL_Rect row = {0};
   row.x = 20;
   row.y = CELL_SPACE + 20;
   row.w = board.row_len * (GIRTH + CELL_SPACE + 20);
   col.h = GIRTH;
 
   gui->window = window;
+  gui->rendr = rendr;
   gui->board = board;
   gui->base_col = col;
   gui->base_row = row;
@@ -55,3 +66,5 @@ void gui_end(gui_t *g) {
 
   game_board_free(&(g->board));
 }
+
+void gui_render_playground(gui_t *gui) {}
