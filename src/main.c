@@ -11,10 +11,11 @@ int main(void) {
     turn++;
     printf("Turn %d\n", turn);
 
-    if (cli_tick(&board) == X) {
+    int tick_res = cli_tick(&board);
+    if (tick_res == X) {
       printf("You won!!!");
       break;
-    } else if (cli_tick(&board) == O) {
+    } else if (tick_res == O) {
       printf("CPU won!!!");
       break;
     }
