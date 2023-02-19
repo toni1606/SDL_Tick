@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -pedantic -Werror
-LDFLAGS=
+LDFLAGS=-lSDL2
 
 SRCDIR=src
 OBJDIR=obj
