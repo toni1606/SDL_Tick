@@ -1,5 +1,7 @@
 #include "../headers/logic.h"
 #include "../headers/utils.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
-void cli_tick(game_board_t *board);
+int cli_tick(game_board_t *board);
