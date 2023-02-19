@@ -62,9 +62,22 @@ void gui_end(gui_t *g) {
   }
 
   SDL_DestroyWindow(g->window);
+  SDL_DestroyRenderer(g->rendr);
   SDL_Quit();
 
   game_board_free(&(g->board));
 }
 
-void gui_render_playground(gui_t *gui) {}
+int gui_render_playground(gui_t *gui) {
+  SDL_SetRenderDrawColor(gui->rendr, 0, 0, 255, 255);
+
+  if (SDL_RenderDrawRect(gui->rendr, &gui->base_col) < 0) {
+    fprintf(stderr, "Could not render column: %s\n", SDL_GetError());
+    return -1;
+  }
+
+  SDL_RenderPresent(gui->rendr);
+  SDL_Delay(5000);
+
+  return 0;
+}

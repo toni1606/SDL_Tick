@@ -8,6 +8,8 @@ int main(void) {
   game_board_new(&board, 9, 3, O, X);
   gui_start(&gui, board, "Tick Tack Toe", 512, 512);
 
+  gui_render_playground(&gui);
+
   gui_end(&gui);
   return 0;
 }
