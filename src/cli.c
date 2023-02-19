@@ -23,8 +23,8 @@ int cli_tick(game_board_t *board) {
     unsigned int row, col;
 
     do {
-      printf("Enter cell withh format = (row, col): ");
-      scanf(" (%u, %u)", &row, &col);
+      printf("Enter cell withh format = row col: ");
+      scanf("%u %u", &row, &col);
     } while (game_board_turn(board, row, col) != 0);
   }
 
