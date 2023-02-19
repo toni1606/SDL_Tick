@@ -1,11 +1,6 @@
+#include "../headers/utils.h"
 #include <stdbool.h>
 #include <stdlib.h>
-
-#define UNIMPLEMENTED(...)                                                     \
-  do {                                                                         \
-    printf("%s:%d: UNIMPLEMENTED: %s \n", __FILE__, __LINE__, __VA_ARGS__);    \
-    exit(1);                                                                   \
-  } while (0);
 
 typedef enum { N = 0, X = 1, O = 2 } game_state_t;
 
