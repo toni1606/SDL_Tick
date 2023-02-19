@@ -43,7 +43,7 @@ int game_board_new(game_board_t *board, unsigned int len, unsigned int row_len,
 
 int game_board_free(game_board_t *board) {
   if (!board) {
-    fprintf(stderr, "Board pointer was NULL");
+    fprintf(stderr, "Board pointer was NULL\n");
     return -1;
   }
 
@@ -61,17 +61,17 @@ void game_board_print(game_board_t *board) {
 
 int game_board_turn(game_board_t *board, unsigned int row, unsigned int col) {
   if (!board) {
-    fprintf(stderr, "Board pointer was NULL");
+    fprintf(stderr, "Board pointer was NULL\n");
     return -1;
   } else if (row >= (board->len / board->row_len)) {
-    fprintf(stderr, "Invalid row value");
+    fprintf(stderr, "Invalid row value\n");
     return -2;
   } else if (col >= board->row_len) {
-    fprintf(stderr, "Invalid column value");
+    fprintf(stderr, "Invalid column value\n");
     return -3;
-  } else if (board->values[(row * board->row_len) + col] != X ||
-             board->values[(row * board->row_len) + col] != O) {
-    fprintf(stderr, "Cell alredy populated");
+  } else if (board->values[(row * board->row_len) + col] == X ||
+             board->values[(row * board->row_len) + col] == O) {
+    fprintf(stderr, "Cell alredy populated\n");
     return -4;
   }
 
