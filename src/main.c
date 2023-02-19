@@ -1,7 +1,10 @@
 #include "../headers/cli.h"
+#include "../headers/gui.h"
 #include <stdio.h>
 
-int main(void) {
+int main(void) { gui_start(); }
+
+int cli_main(void) {
   game_board_t board;
 
   game_board_new(&board, 9, 3, O, X);
