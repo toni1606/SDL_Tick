@@ -1,4 +1,5 @@
 #include "../headers/gui.h"
+#include <SDL2/SDL_error.h>
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
 #include <stdio.h>
@@ -68,6 +69,24 @@ void gui_end(gui_t *g) {
   game_board_free(&(g->board));
 }
 
+static int gui_render_cols(gui_t *gui) {
+  for (int i = 0; i < gui->board.row_len - 1; i++) {
+    SDL_Rect rect;
+
+    rect.x = (CELL_SPACE + 20) * (i + 1);
+    rect.y = gui->base_col.y;
+    rect.w = gui->base_col.w;
+    rect.h = gui->base_col.h;
+
+    if (SDL_RenderFillRect(gui->rendr, &rect) < 0) {
+      fprintf(stderr, "Could not fill the column %d: %s\n", i, SDL_GetError());
+      return -1;
+    }
+  }
+
+  return 0;
+}
+
 int gui_render_playground(gui_t *gui) {
   // Clear the rendering.
   SDL_RenderClear(gui->rendr);
@@ -75,11 +94,8 @@ int gui_render_playground(gui_t *gui) {
   // Change Render Color.
   SDL_SetRenderDrawColor(gui->rendr, 255, 255, 255, 255);
 
-  // Draw the base column rectangle.
-  if (SDL_RenderFillRect(gui->rendr, &gui->base_col) < 0) {
-    fprintf(stderr, "Could not fill column: %s\n", SDL_GetError());
-    return -1;
-  }
+  // Draw the rectangles.
+  gui_render_cols(gui);
 
   // Draw the base row column.
   if (SDL_RenderFillRect(gui->rendr, &gui->base_row) < 0) {
