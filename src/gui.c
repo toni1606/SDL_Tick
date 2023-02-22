@@ -44,7 +44,7 @@ int gui_start(gui_t *gui, game_board_t board, char *title, unsigned int width,
   row.x = 20;
   row.y = CELL_SPACE + 20;
   row.w = board.row_len * (GIRTH + CELL_SPACE + 20);
-  col.h = GIRTH;
+  row.h = GIRTH;
 
   gui->window = window;
   gui->rendr = rendr;
@@ -73,13 +73,18 @@ int gui_render_playground(gui_t *gui) {
   SDL_RenderClear(gui->rendr);
 
   // Change Render Color.
-  SDL_SetRenderDrawColor(gui->rendr, 0, 0, 255, 255);
+  SDL_SetRenderDrawColor(gui->rendr, 255, 255, 255, 255);
 
-  // Draw the outline of the rectangle.
-  // TODO: Use SDL_RendererFillRect() to fill it with colour.
-  if (SDL_RenderDrawRect(gui->rendr, &gui->base_col) < 0) {
-    fprintf(stderr, "Could not render column: %s\n", SDL_GetError());
+  // Draw the base column rectangle.
+  if (SDL_RenderFillRect(gui->rendr, &gui->base_col) < 0) {
+    fprintf(stderr, "Could not fill column: %s\n", SDL_GetError());
     return -1;
+  }
+
+  // Draw the base row column.
+  if (SDL_RenderFillRect(gui->rendr, &gui->base_row) < 0) {
+    fprintf(stderr, "Could not fill row: %s\n", SDL_GetError());
+    return -2;
   }
 
   // Change Back buffer with front buffer.

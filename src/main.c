@@ -8,6 +8,10 @@ int main(void) {
   game_board_new(&board, 9, 3, O, X);
   gui_start(&gui, board, "Tick Tack Toe", 512, 512);
 
+  printf("Rect {x: %d, y: %d, w: %d, h: %d}\n", gui.base_col.x, gui.base_col.y,
+         gui.base_col.w, gui.base_col.h);
+  printf("Rect {x: %d, y: %d, w: %d, h: %d}\n", gui.base_row.x, gui.base_row.y,
+         gui.base_row.w, gui.base_row.h);
   gui_render_playground(&gui);
 
   gui_end(&gui);

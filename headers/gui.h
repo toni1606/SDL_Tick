@@ -9,7 +9,7 @@
 #include <stdio.h>
 
 #define CELL_SPACE 50
-#define GIRTH 20
+#define GIRTH 10
 
 typedef struct {
   SDL_Window *window;
