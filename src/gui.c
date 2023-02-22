@@ -70,16 +70,37 @@ void gui_end(gui_t *g) {
 }
 
 static int gui_render_cols(gui_t *gui) {
+  SDL_Rect rect;
+  rect.x = 0;
+  rect.y = gui->base_col.y;
+  rect.w = gui->base_col.w;
+  rect.h = gui->base_col.h;
+
   for (int i = 0; i < gui->board.row_len - 1; i++) {
-    SDL_Rect rect;
 
     rect.x = (CELL_SPACE + 20) * (i + 1);
-    rect.y = gui->base_col.y;
-    rect.w = gui->base_col.w;
-    rect.h = gui->base_col.h;
 
     if (SDL_RenderFillRect(gui->rendr, &rect) < 0) {
       fprintf(stderr, "Could not fill the column %d: %s\n", i, SDL_GetError());
+      return -1;
+    }
+  }
+
+  return 0;
+}
+
+static int gui_render_rows(gui_t *gui) {
+  SDL_Rect rect;
+  rect.x = gui->base_row.x;
+  rect.y = 0;
+  rect.w = gui->base_row.w;
+  rect.h = gui->base_row.h;
+
+  for (int i = 0; i < (gui->board.len / gui->board.row_len) - 1; i++) {
+    rect.y = (CELL_SPACE + 20) * (i + 1);
+
+    if (SDL_RenderFillRect(gui->rendr, &rect) < 0) {
+      fprintf(stderr, "Could not fill the row %d: %s\n", i, SDL_GetError());
       return -1;
     }
   }
@@ -94,14 +115,11 @@ int gui_render_playground(gui_t *gui) {
   // Change Render Color.
   SDL_SetRenderDrawColor(gui->rendr, 255, 255, 255, 255);
 
-  // Draw the rectangles.
+  // Draw the coulmns.
   gui_render_cols(gui);
 
-  // Draw the base row column.
-  if (SDL_RenderFillRect(gui->rendr, &gui->base_row) < 0) {
-    fprintf(stderr, "Could not fill row: %s\n", SDL_GetError());
-    return -2;
-  }
+  // Draw the rows.
+  gui_render_rows(gui);
 
   // Change Back buffer with front buffer.
   SDL_RenderPresent(gui->rendr);
