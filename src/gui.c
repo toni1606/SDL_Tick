@@ -40,11 +40,11 @@ int gui_start(gui_t *gui, game_board_t board, char *title, unsigned int width,
   col.x = CELL_SPACE + 20;
   col.y = 20;
   col.w = GIRTH;
-  col.h = (board.len / board.row_len) * (GIRTH + CELL_SPACE + 20);
+  col.h = (board.len / board.row_len) * (CELL_SPACE + 20);
 
   row.x = 20;
   row.y = CELL_SPACE + 20;
-  row.w = board.row_len * (GIRTH + CELL_SPACE + 20);
+  row.w = board.row_len * (CELL_SPACE + 20);
   row.h = GIRTH;
 
   gui->window = window;
@@ -78,7 +78,7 @@ static int gui_render_cols(gui_t *gui) {
 
   for (int i = 0; i < gui->board.row_len - 1; i++) {
 
-    rect.x = (CELL_SPACE + 20) * (i + 1);
+    rect.x += gui->base_col.x + GIRTH;
 
     if (SDL_RenderFillRect(gui->rendr, &rect) < 0) {
       fprintf(stderr, "Could not fill the column %d: %s\n", i, SDL_GetError());
@@ -97,7 +97,7 @@ static int gui_render_rows(gui_t *gui) {
   rect.h = gui->base_row.h;
 
   for (int i = 0; i < (gui->board.len / gui->board.row_len) - 1; i++) {
-    rect.y = (CELL_SPACE + 20) * (i + 1);
+    rect.y += gui->base_row.y + GIRTH;
 
     if (SDL_RenderFillRect(gui->rendr, &rect) < 0) {
       fprintf(stderr, "Could not fill the row %d: %s\n", i, SDL_GetError());
