@@ -143,6 +143,21 @@ static void gui_render_circle(gui_t *gui, int center_x, int center_y, int r) {
   }
 }
 
+static int gui_render_game_state(gui_t *gui) {
+  int y = 20 + CELL_SPACE / 2;
+  for (int i = 0; i < gui->board.len / gui->board.row_len; i++) {
+    int x = 20 + CELL_SPACE / 2;
+    for (int j = 0; j < gui->board.row_len; j++) {
+      gui_render_circle(gui, x, y, 25);
+      x += 20 + CELL_SPACE / 2 + GIRTH;
+    }
+
+    y += 20 + CELL_SPACE / 2 + GIRTH;
+  }
+
+  return 0;
+}
+
 int gui_render_playground(gui_t *gui) {
   // Clear the rendering.
   SDL_RenderClear(gui->rendr);
@@ -157,7 +172,7 @@ int gui_render_playground(gui_t *gui) {
   gui_render_rows(gui);
 
   // Draw game board state.
-  gui_render_circle(gui, 256, 256, 25);
+  gui_render_game_state(gui);
 
   // Change Back buffer with front buffer.
   SDL_RenderPresent(gui->rendr);
