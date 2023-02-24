@@ -108,6 +108,41 @@ static int gui_render_rows(gui_t *gui) {
   return 0;
 }
 
+// Source:
+// https://discourse.libsdl.org/t/query-how-do-you-draw-a-circle-in-sdl2-sdl2/33379
+static void gui_render_circle(gui_t *gui, int center_x, int center_y, int r) {
+  int diameter = r * 2;
+
+  int x = r - 1;
+  int y = 0;
+  int tx = 1;
+  int ty = 1;
+  int err = tx - diameter;
+
+  while (x >= y) {
+    SDL_RenderDrawPoint(gui->rendr, center_x + x, center_y - y);
+    SDL_RenderDrawPoint(gui->rendr, center_x + x, center_y + y);
+    SDL_RenderDrawPoint(gui->rendr, center_x - x, center_y - y);
+    SDL_RenderDrawPoint(gui->rendr, center_x - x, center_y + y);
+    SDL_RenderDrawPoint(gui->rendr, center_x + y, center_y - x);
+    SDL_RenderDrawPoint(gui->rendr, center_x + y, center_y + x);
+    SDL_RenderDrawPoint(gui->rendr, center_x - y, center_y - x);
+    SDL_RenderDrawPoint(gui->rendr, center_x - y, center_y + x);
+
+    if (err <= 0) {
+      y++;
+      err += ty;
+      ty += 2;
+    }
+
+    if (err > 0) {
+      x--;
+      tx += 2;
+      err += tx - diameter;
+    }
+  }
+}
+
 int gui_render_playground(gui_t *gui) {
   // Clear the rendering.
   SDL_RenderClear(gui->rendr);
@@ -120,6 +155,9 @@ int gui_render_playground(gui_t *gui) {
 
   // Draw the rows.
   gui_render_rows(gui);
+
+  // Draw game board state.
+  gui_render_circle(gui, 256, 256, 25);
 
   // Change Back buffer with front buffer.
   SDL_RenderPresent(gui->rendr);
