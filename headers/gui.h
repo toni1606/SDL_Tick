@@ -25,3 +25,5 @@ int gui_start(gui_t *gui, game_board_t board, char *title, unsigned int width,
 void gui_end(gui_t *g);
 
 int gui_render_playground(gui_t *gui);
+
+int gui_tick(gui_t *gui);

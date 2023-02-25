@@ -1,5 +1,6 @@
 #include "../headers/gui.h"
 #include <SDL2/SDL_error.h>
+#include <SDL2/SDL_events.h>
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
 #include <stdio.h>
@@ -183,6 +184,9 @@ static int gui_render_game_state(gui_t *gui) {
 }
 
 int gui_render_playground(gui_t *gui) {
+  // Change Render Color to black to clear renderer.
+  SDL_SetRenderDrawColor(gui->rendr, 0, 0, 0, 255);
+
   // Clear the rendering.
   SDL_RenderClear(gui->rendr);
 
@@ -200,7 +204,31 @@ int gui_render_playground(gui_t *gui) {
 
   // Change Back buffer with front buffer.
   SDL_RenderPresent(gui->rendr);
-  SDL_Delay(1000);
+  return 0;
+}
 
+int gui_tick(gui_t *gui) {
+  SDL_Event event;
+
+  while (SDL_PollEvent(&event)) {
+    gui_render_playground(gui);
+
+    switch (event.type) {
+    case SDL_QUIT:
+      return 2;
+    case SDL_MOUSEBUTTONUP:
+      switch (event.button.type) {
+      case SDL_MOUSEBUTTONUP:
+        printf("x: %d, y: %d\n", event.button.x, event.button.y);
+        break;
+      }
+      break;
+    case SDL_KEYUP:
+      switch (event.key.keysym.sym) {
+      case SDLK_ESCAPE:
+        return 1;
+      }
+    }
+  }
   return 0;
 }
