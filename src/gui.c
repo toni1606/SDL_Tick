@@ -1,11 +1,4 @@
 #include "../headers/gui.h"
-#include <SDL2/SDL_error.h>
-#include <SDL2/SDL_events.h>
-#include <SDL2/SDL_rect.h>
-#include <SDL2/SDL_render.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 
 int gui_start(gui_t *gui, game_board_t board, char *title, unsigned int width,
               unsigned int height) {

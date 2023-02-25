@@ -1,5 +1,6 @@
 #include "../headers/utils.h"
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 typedef enum { N = 0, X = 1, O = 2 } game_state_t;

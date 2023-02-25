@@ -1,6 +1,4 @@
 #include "../headers/logic.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 char game_state_tc(game_state_t s) {
   char out = '\0';

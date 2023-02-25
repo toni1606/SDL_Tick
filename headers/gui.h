@@ -2,11 +2,12 @@
 #include "../headers/utils.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_error.h>
+#include <SDL2/SDL_events.h>
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_video.h>
-#include <stdio.h>
+#include <time.h>
 
 #define CELL_SPACE 100
 #define GIRTH 10

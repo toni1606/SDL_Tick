@@ -1,5 +1,4 @@
 #include "../headers/gui.h"
-#include <stdio.h>
 
 int main(void) {
   gui_t gui;

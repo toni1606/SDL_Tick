@@ -1,7 +1,4 @@
 #include "../headers/cli.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 
 int cli_tick(game_board_t *board) {
   game_board_print(board);
