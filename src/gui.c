@@ -4,6 +4,8 @@
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 int gui_start(gui_t *gui, game_board_t board, char *title, unsigned int width,
               unsigned int height) {
@@ -207,11 +209,11 @@ int gui_render_playground(gui_t *gui) {
   return 0;
 }
 
-int gui_tick(gui_t *gui) {
+int gui_handle_player(gui_t *gui, int *row, int *col) {
   SDL_Event event;
-
   while (SDL_PollEvent(&event)) {
-    gui_render_playground(gui);
+    *row = -1;
+    *col = -1;
 
     switch (event.type) {
     case SDL_QUIT:
@@ -229,36 +231,60 @@ int gui_tick(gui_t *gui) {
         // Do this for x and y.
 
         int tmp = gui->base_row.w / gui->board.row_len;
-        int col = -1;
         for (int i = 0; i < gui->board.row_len;
              i++, tmp += gui->base_row.w / gui->board.row_len) {
           if (event.button.x < tmp) {
-            col = i;
+            *col = i;
             break;
           }
         }
 
         tmp = gui->base_col.h / (gui->board.len / gui->board.row_len);
-        int row = -1;
         for (int i = 0; i < gui->board.len / gui->board.row_len;
              i++, tmp +=
                   gui->base_col.h / (gui->board.len / gui->board.row_len)) {
           if (event.button.y < tmp) {
-            row = i;
+            *row = i;
             break;
           }
         }
 
-        printf("col: %d, row: %d\n", col, row);
-        break;
+        if (*col < 0 || *row < 0) {
+          continue;
+        }
+        return 0;
       }
       break;
     case SDL_KEYUP:
-      switch (event.key.keysym.sym) {
-      case SDLK_ESCAPE:
+      if (event.key.keysym.sym == SDLK_ESCAPE)
         return 1;
-      }
     }
   }
   return 0;
+}
+
+int gui_tick(gui_t *gui) {
+  gui_render_playground(gui);
+
+  int col = 0;
+  int row = 0;
+
+  if (gui->board.is_cpu_turn) {
+    // Set random seed to time.
+    srand(time(NULL));
+
+    // Generate row and column and perform turn.
+    // (rand() + MIN_VALUE) % MAX_VALUE
+    // Repeat until valid numbers from generator.
+    int col, row;
+    do {
+      col = rand() % gui->board.row_len;
+      row = rand() % (gui->board.len / gui->board.row_len);
+    } while (game_board_turn(&gui->board, row, col) != 0);
+  } else {
+    do {
+      printf("%d\n", gui_handle_player(gui, &row, &col));
+    } while (game_board_turn(&gui->board, row, col) != 0);
+  }
+  return game_board_check_winner(&gui->board);
 }

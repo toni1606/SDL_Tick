@@ -7,13 +7,13 @@ int main(void) {
 
   game_board_new(&board, 9, 3, O, X);
 
-  board.values[0] = X;
-  board.values[1] = O;
-
   gui_start(&gui, board, "Tick Tack Toe", 512, 512);
 
   while (gui_tick(&gui) <= 0) {
+    printf("hello, world");
   }
+
+  printf("Somebody won");
 
   gui_end(&gui);
   return 0;
