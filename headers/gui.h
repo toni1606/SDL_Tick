@@ -8,8 +8,9 @@
 #include <SDL2/SDL_video.h>
 #include <stdio.h>
 
-#define CELL_SPACE 50
+#define CELL_SPACE 100
 #define GIRTH 10
+#define PADDING 20
 
 typedef struct {
   SDL_Window *window;

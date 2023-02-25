@@ -37,14 +37,14 @@ int gui_start(gui_t *gui, game_board_t board, char *title, unsigned int width,
   }
 
   // 20 == padding
-  col.x = CELL_SPACE + 20;
-  col.y = 20;
+  col.x = CELL_SPACE + PADDING;
+  col.y = PADDING;
   col.w = GIRTH;
-  col.h = (board.len / board.row_len) * (CELL_SPACE + 20);
+  col.h = (board.len / board.row_len) * (CELL_SPACE + PADDING);
 
-  row.x = 20;
-  row.y = CELL_SPACE + 20;
-  row.w = board.row_len * (CELL_SPACE + 20);
+  row.x = PADDING;
+  row.y = CELL_SPACE + PADDING;
+  row.w = board.row_len * (CELL_SPACE + PADDING);
   row.h = GIRTH;
 
   gui->window = window;
@@ -144,18 +144,18 @@ static void gui_render_circle(gui_t *gui, int center_x, int center_y, int r) {
 }
 
 static int gui_render_game_state(gui_t *gui) {
-  int y = 20 + CELL_SPACE / 2;
+  int y = PADDING + CELL_SPACE / 2;
   for (int i = 0; i < gui->board.len / gui->board.row_len; i++) {
-    int x = 20 + CELL_SPACE / 2;
+    int x = PADDING + CELL_SPACE / 2;
     for (int j = 0; j < gui->board.row_len; j++) {
       gui_render_circle(gui, x, y, CELL_SPACE / 2);
 
       // PADDING + 2 * (CELL_SPACE / 2) + GIRTH => PADDING + CELL_SPACE + GIRTH
-      x += 20 + CELL_SPACE + GIRTH;
+      x += PADDING + CELL_SPACE + GIRTH;
     }
 
     // PADDING + 2 * (CELL_SPACE / 2) + GIRTH => PADDING + CELL_SPACE + GIRTH
-    y += 20 + CELL_SPACE + GIRTH;
+    y += PADDING + CELL_SPACE + GIRTH;
   }
 
   return 0;
