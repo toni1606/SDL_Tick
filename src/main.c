@@ -1,5 +1,34 @@
-#include "../headers/gui.h"
+// CLI Implementation of Tick Tack Toe
+#if 0
+#include "../headers/cli.h"
+int main(void) {
+  game_board_t board;
 
+  game_board_new(&board, 9, 3, O, X);
+
+  unsigned int turn = 0;
+  while (true) {
+    turn++;
+    printf("Turn %d\n", turn);
+
+    int tick_res = cli_tick(&board);
+    if (tick_res == X) {
+      printf("You won!!!");
+      break;
+    } else if (tick_res == O) {
+      printf("CPU won!!!");
+      break;
+    }
+  }
+
+  game_board_free(&board);
+  return 0;
+}
+#endif
+
+// GUI (sort of) Implementation of Tick Tack Toe
+#if 1
+#include "../headers/gui.h"
 int main(void) {
   gui_t gui;
   game_board_t board;
@@ -22,27 +51,4 @@ int main(void) {
   gui_end(&gui);
   return 0;
 }
-
-// int cli_main(void) {
-//   game_board_t board;
-//
-//   game_board_new(&board, 9, 3, O, X);
-//
-//   unsigned int turn = 0;
-//   while (true) {
-//     turn++;
-//     printf("Turn %d\n", turn);
-//
-//     int tick_res = cli_tick(&board);
-//     if (tick_res == X) {
-//       printf("You won!!!");
-//       break;
-//     } else if (tick_res == O) {
-//       printf("CPU won!!!");
-//       break;
-//     }
-//   }
-//
-//   game_board_free(&board);
-//   return 0;
-// }
+#endif
