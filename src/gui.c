@@ -276,7 +276,7 @@ int gui_tick(gui_t *gui) {
     } while (game_board_turn(&gui->board, row, col) != 0);
   } else {
     do {
-      printf("%d\n", gui_handle_player(gui, &row, &col));
+      gui_handle_player(gui, &row, &col);
     } while (game_board_turn(&gui->board, row, col) != 0);
   }
   return game_board_check_winner(&gui->board);
