@@ -219,7 +219,14 @@ int gui_tick(gui_t *gui) {
     case SDL_MOUSEBUTTONUP:
       switch (event.button.type) {
       case SDL_MOUSEBUTTONUP:
-        printf("x: %d, y: %d\n", event.button.x, event.button.y);
+        if (event.button.x > gui->base_row.w || event.button.x < PADDING ||
+            event.button.y > gui->base_col.h || event.button.y < PADDING) {
+          break;
+        }
+        printf("x: %d, y: %d,\t", event.button.x, event.button.y);
+        int col = event.button.x / gui->board.row_len;
+        int row = event.button.y / (gui->board.len / gui->board.row_len);
+        printf("col: %d, row: %d\n", col, row);
         break;
       }
       break;
