@@ -166,7 +166,7 @@ static int gui_render_game_state(gui_t *gui) {
         gui_render_sq(gui, x, y, (int)(CELL_SPACE * 0.8));
         break;
       case O:
-        gui_render_circle(gui, x, y, CELL_SPACE / 2);
+        gui_render_circle(gui, x, y, (int)(CELL_SPACE * 0.4));
         break;
       case N:
         break;
@@ -223,7 +223,6 @@ int gui_tick(gui_t *gui) {
             event.button.y > gui->base_col.h || event.button.y < PADDING) {
           break;
         }
-        printf("x: %d, y: %d,\t", event.button.x, event.button.y);
         int col = event.button.x / gui->board.row_len;
         int row = event.button.y / (gui->board.len / gui->board.row_len);
         printf("col: %d, row: %d\n", col, row);
