@@ -148,11 +148,14 @@ static int gui_render_game_state(gui_t *gui) {
   for (int i = 0; i < gui->board.len / gui->board.row_len; i++) {
     int x = 20 + CELL_SPACE / 2;
     for (int j = 0; j < gui->board.row_len; j++) {
-      gui_render_circle(gui, x, y, 25);
-      x += 20 + CELL_SPACE / 2 + GIRTH;
+      gui_render_circle(gui, x, y, CELL_SPACE / 2);
+
+      // PADDING + 2 * (CELL_SPACE / 2) + GIRTH => PADDING + CELL_SPACE + GIRTH
+      x += 20 + CELL_SPACE + GIRTH;
     }
 
-    y += 20 + CELL_SPACE / 2 + GIRTH;
+    // PADDING + 2 * (CELL_SPACE / 2) + GIRTH => PADDING + CELL_SPACE + GIRTH
+    y += 20 + CELL_SPACE + GIRTH;
   }
 
   return 0;
