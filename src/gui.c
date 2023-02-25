@@ -223,8 +223,32 @@ int gui_tick(gui_t *gui) {
             event.button.y > gui->base_col.h || event.button.y < PADDING) {
           break;
         }
-        int col = event.button.x / gui->board.row_len;
-        int row = event.button.y / (gui->board.len / gui->board.row_len);
+
+        // Compute each of the zones of the cells adding (max / len).
+        // Then check if the coordinate of the mouse is within the range.
+        // Do this for x and y.
+
+        int tmp = gui->base_row.w / gui->board.row_len;
+        int col = -1;
+        for (int i = 0; i < gui->board.row_len;
+             i++, tmp += gui->base_row.w / gui->board.row_len) {
+          if (event.button.x < tmp) {
+            col = i;
+            break;
+          }
+        }
+
+        tmp = gui->base_col.h / (gui->board.len / gui->board.row_len);
+        int row = -1;
+        for (int i = 0; i < gui->board.len / gui->board.row_len;
+             i++, tmp +=
+                  gui->base_col.h / (gui->board.len / gui->board.row_len)) {
+          if (event.button.y < tmp) {
+            row = i;
+            break;
+          }
+        }
+
         printf("col: %d, row: %d\n", col, row);
         break;
       }
