@@ -1,5 +1,5 @@
 // CLI Implementation of Tick Tack Toe
-#if 0
+#ifdef CLI_APP
 #include "../headers/cli.h"
 int main(void) {
   game_board_t board;
@@ -27,7 +27,7 @@ int main(void) {
 #endif
 
 // GUI (sort of) Implementation of Tick Tack Toe
-#if 1
+#ifndef CLI_APP
 #include "../headers/gui.h"
 int main(void) {
   gui_t gui;
