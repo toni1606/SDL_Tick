@@ -6,6 +6,10 @@ int main(void) {
   game_board_t board;
 
   game_board_new(&board, 9, 3, O, X);
+
+  board.values[0] = X;
+  board.values[1] = O;
+
   gui_start(&gui, board, "Tick Tack Toe", 512, 512);
 
   gui_render_playground(&gui);

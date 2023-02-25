@@ -160,8 +160,16 @@ static int gui_render_game_state(gui_t *gui) {
   for (int i = 0; i < gui->board.len / gui->board.row_len; i++) {
     int x = PADDING + CELL_SPACE / 2;
     for (int j = 0; j < gui->board.row_len; j++) {
-      gui_render_circle(gui, x, y, CELL_SPACE / 2);
-      gui_render_sq(gui, x, y, (int)(CELL_SPACE * 0.8));
+      switch (gui->board.values[i * gui->board.row_len + j]) {
+      case X:
+        gui_render_sq(gui, x, y, (int)(CELL_SPACE * 0.8));
+        break;
+      case O:
+        gui_render_circle(gui, x, y, CELL_SPACE / 2);
+        break;
+      case N:
+        break;
+      }
 
       // PADDING + 2 * (CELL_SPACE / 2) + GIRTH => PADDING + CELL_SPACE + GIRTH
       x += PADDING + CELL_SPACE + GIRTH;
