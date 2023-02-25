@@ -9,11 +9,16 @@ int main(void) {
 
   gui_start(&gui, board, "Tick Tack Toe", 512, 512);
 
-  while (gui_tick(&gui) <= 0) {
-    printf("hello, world");
+  while (true) {
+    int res = gui_tick(&gui);
+    if (res == X) {
+      printf("You won!!!");
+      break;
+    } else if (res == O) {
+      printf("CPU won!!!");
+      break;
+    }
   }
-
-  printf("Somebody won");
 
   gui_end(&gui);
   return 0;
