@@ -97,7 +97,7 @@ static bool is_winner_row(game_board_t *board, unsigned int row,
 static bool is_winner_col(game_board_t *board, unsigned int col,
                           game_state_t check_for) {
   for (unsigned int i = col; i < board->len; i += board->row_len) {
-    if (board->values[i + col] != check_for)
+    if (board->values[i] != check_for)
       return false;
   }
 
