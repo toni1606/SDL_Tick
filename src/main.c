@@ -24,10 +24,8 @@ int main(void) {
   game_board_free(&board);
   return 0;
 }
-#endif
-
+#else
 // GUI (sort of) Implementation of Tick Tack Toe
-#ifndef CLI_APP
 #include "../headers/gui.h"
 int main(void) {
   gui_t gui;
