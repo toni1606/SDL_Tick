@@ -159,5 +159,20 @@ int game_board_check_winner(game_board_t *board) {
   else if (is_winner_diag_r(board, board->plr_tok))
     return board->plr_tok;
 
-  return 0;
+  return (game_board_is_full(board)) ? 5 : 0;
+}
+
+bool game_board_is_full(game_board_t *board) {
+  if (!board) {
+    fprintf(stderr, "Board pointer NULL");
+    return false;
+  }
+
+  for (int i = 0; i < board->len; i++) {
+    if (board->values[i] == N) {
+      return false;
+    }
+  }
+
+  return true;
 }

@@ -25,3 +25,4 @@ int game_board_free(game_board_t *board);
 void game_board_print(game_board_t *board);
 int game_board_turn(game_board_t *board, unsigned int row, unsigned int col);
 int game_board_check_winner(game_board_t *board);
+bool game_board_is_full(game_board_t *board);

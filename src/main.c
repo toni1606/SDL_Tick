@@ -13,10 +13,13 @@ int main(void) {
 
     int tick_res = cli_tick(&board);
     if (tick_res == X) {
-      printf("You won!!!");
+      printf("You won!!!\n");
       break;
     } else if (tick_res == O) {
-      printf("CPU won!!!");
+      printf("CPU won!!!\n");
+      break;
+    } else if (tick_res == 5) {
+      printf("Draw!!!\n");
       break;
     }
   }
@@ -38,10 +41,13 @@ int main(void) {
   while (true) {
     int res = gui_tick(&gui);
     if (res == X) {
-      printf("You won!!!");
+      printf("You won!!!\n");
       break;
     } else if (res == O) {
-      printf("CPU won!!!");
+      printf("CPU won!!!\n");
+      break;
+    } else if (res == 5) {
+      printf("Draw!!!\n");
       break;
     }
   }
