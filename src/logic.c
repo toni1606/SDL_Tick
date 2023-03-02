@@ -1,4 +1,5 @@
 #include "../headers/logic.h"
+#include <stdio.h>
 
 char game_state_tc(game_state_t s) {
   char out = '\0';
@@ -114,7 +115,7 @@ static bool is_winner_diag_l(game_board_t *board, game_state_t check_for) {
 
 static bool is_winner_diag_r(game_board_t *board, game_state_t check_for) {
   unsigned int j = 0;
-  for (unsigned int i = board->row_len - 1; i > 0; i--) {
+  for (unsigned int i = board->row_len - 1; i >= 0; i--) {
     if (board->values[j * board->row_len + i] != check_for)
       return false;
     j++;
